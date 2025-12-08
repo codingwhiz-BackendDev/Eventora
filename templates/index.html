@@ -1,35 +1,868 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Welcome to Django</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
-        .container {
-            text-align: center;
-            padding: 2rem;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #333;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventora - Modern Event Management & Ticketing</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to Django!</h1>
-        <p>Your project has been successfully set up.</p>
-        <p>Let your friends know about this amazing python package.</p>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 10H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8 14H8.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 14H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 14H16.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8 18H8.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 18H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Eventora</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#faq">FAQ</a>
+            </div>
+            <div class="nav-actions">
+                <a href="login" class="btn-text">Log in</a>
+                <a href="register" class="btn-primary">Sign up</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#faq">FAQ</a>
+            <div class="mobile-menu-actions">
+                <a href="login" class="btn-text">Log in</a>
+                <a href="register" class="btn-primary">Sign up</a>
+            </div>
+        </div>
     </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="hero-gradient"></div>
+            <div class="hero-grid"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge animate-fade-in">
+                <span class="badge-dot"></span>
+                Now with QR Code Tickets
+            </div>
+            <h1 class="hero-title animate-fade-in-up">
+                The complete platform to <span class="text-gradient">create & manage</span> unforgettable events
+            </h1>
+            <p class="hero-subtitle animate-fade-in-up delay-1">
+                From intimate gatherings to massive festivals, Eventora gives you everything you need to create, promote, and sell tickets for your events.
+            </p>
+            <div class="hero-cta animate-fade-in-up delay-2">
+                <a href="#" class="btn-primary btn-large">
+                    Get started — it's free
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="#" class="btn-secondary btn-large">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polygon points="10 8 16 12 10 16 10 8" fill="currentColor"/>
+                    </svg>
+                    Watch demo
+                </a>
+            </div>
+            <div class="hero-stats animate-fade-in-up delay-3">
+                <div class="stat">
+                    <span class="stat-number" data-count="50000">0</span>
+                    <span class="stat-label">Events Created</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-number" data-count="2">0</span><span class="stat-suffix">M+</span>
+                    <span class="stat-label">Tickets Sold</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-number" data-count="99">0</span><span class="stat-suffix">%</span>
+                    <span class="stat-label">Satisfaction Rate</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual animate-fade-in delay-2">
+            <div class="floating-card card-1">
+                <div class="card-header">
+                    <span class="card-badge live">LIVE</span>
+                    <span class="card-time">2h 45m left</span>
+                </div>
+                <div class="card-body">
+                    <h4>Tech Summit 2024</h4>
+                    <p>San Francisco, CA</p>
+                    <div class="card-stats">
+                        <span>1,245 attending</span>
+                        <span class="card-price">$299</span>
+                    </div>
+                </div>
+            </div>
+            <div class="floating-card card-2">
+                <div class="ticket-preview">
+                    <div class="qr-code">
+                        <svg viewBox="0 0 100 100">
+                            <rect x="10" y="10" width="20" height="20" fill="currentColor"/>
+                            <rect x="35" y="10" width="10" height="10" fill="currentColor"/>
+                            <rect x="50" y="10" width="10" height="10" fill="currentColor"/>
+                            <rect x="70" y="10" width="20" height="20" fill="currentColor"/>
+                            <rect x="10" y="35" width="10" height="10" fill="currentColor"/>
+                            <rect x="30" y="35" width="10" height="10" fill="currentColor"/>
+                            <rect x="50" y="35" width="20" height="10" fill="currentColor"/>
+                            <rect x="80" y="35" width="10" height="10" fill="currentColor"/>
+                            <rect x="10" y="50" width="10" height="20" fill="currentColor"/>
+                            <rect x="30" y="50" width="10" height="10" fill="currentColor"/>
+                            <rect x="50" y="50" width="10" height="10" fill="currentColor"/>
+                            <rect x="70" y="50" width="10" height="10" fill="currentColor"/>
+                            <rect x="10" y="70" width="20" height="20" fill="currentColor"/>
+                            <rect x="40" y="70" width="10" height="10" fill="currentColor"/>
+                            <rect x="60" y="70" width="10" height="20" fill="currentColor"/>
+                            <rect x="80" y="80" width="10" height="10" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="ticket-info">
+                        <span class="ticket-label">VIP ACCESS</span>
+                        <span class="ticket-name">Music Festival</span>
+                    </div>
+                </div>
+            </div>
+            <div class="floating-card card-3">
+                <div class="notification">
+                    <div class="notification-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                    </div>
+                    <div class="notification-content">
+                        <span class="notification-title">Payment Received</span>
+                        <span class="notification-amount">+$1,250.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted By Section -->
+    <section class="trusted-by">
+        <div class="container">
+            <p class="trusted-label">Trusted by event organizers worldwide</p>
+            <div class="logo-grid">
+                <div class="logo-item">TechConf</div>
+                <div class="logo-item">MusicFest</div>
+                <div class="logo-item">StartupWeek</div>
+                <div class="logo-item">ArtExpo</div>
+                <div class="logo-item">FoodFair</div>
+                <div class="logo-item">SportsPro</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Features</span>
+                <h2 class="section-title">Everything you need to run successful events</h2>
+                <p class="section-subtitle">Powerful tools designed for event organizers of all sizes</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                    </div>
+                    <h3>Event Creation</h3>
+                    <p>Create beautiful event pages in minutes with our intuitive drag-and-drop builder. No coding required.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="5" width="20" height="14" rx="2"/>
+                            <line x1="2" y1="10" x2="22" y2="10"/>
+                        </svg>
+                    </div>
+                    <h3>Secure Payments</h3>
+                    <p>Accept payments worldwide with support for all major credit cards and payment methods.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"/>
+                            <rect x="14" y="3" width="7" height="7"/>
+                            <rect x="14" y="14" width="7" height="7"/>
+                            <rect x="3" y="14" width="7" height="7"/>
+                        </svg>
+                    </div>
+                    <h3>QR Code Tickets</h3>
+                    <p>Generate secure digital tickets with unique QR codes. Fast check-in, no paper waste.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="20" x2="18" y2="10"/>
+                            <line x1="12" y1="20" x2="12" y2="4"/>
+                            <line x1="6" y1="20" x2="6" y2="14"/>
+                        </svg>
+                    </div>
+                    <h3>Real-time Analytics</h3>
+                    <p>Track ticket sales, attendee engagement, and revenue with powerful analytics dashboards.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3>Attendee Management</h3>
+                    <p>Manage your guest list, send communications, and track attendance all in one place.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                            <line x1="1" y1="10" x2="23" y2="10"/>
+                        </svg>
+                    </div>
+                    <h3>Custom Branding</h3>
+                    <p>Make your events stand out with custom colors, logos, and branded ticket designs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">How It Works</span>
+                <h2 class="section-title">Launch your event in three simple steps</h2>
+                <p class="section-subtitle">Get from idea to ticket sales in minutes, not days</p>
+            </div>
+            <div class="steps-container">
+                <div class="step" data-aos="fade-right">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Create Your Event</h3>
+                        <p>Use our intuitive builder to create a stunning event page. Add details, images, ticket types, and set your pricing.</p>
+                        <ul class="step-features">
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                Drag-and-drop builder
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                Multiple ticket tiers
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                Early bird pricing
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="step-visual">
+                        <div class="browser-mockup">
+                            <div class="browser-header">
+                                <span class="browser-dot"></span>
+                                <span class="browser-dot"></span>
+                                <span class="browser-dot"></span>
+                            </div>
+                            <div class="browser-content">
+                                <div class="mockup-form">
+                                    <div class="mockup-input"></div>
+                                    <div class="mockup-input short"></div>
+                                    <div class="mockup-textarea"></div>
+                                    <div class="mockup-button"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="step reverse" data-aos="fade-left">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Promote & Sell Tickets</h3>
+                        <p>Share your event across social media, embed ticket widgets on your website, and let our marketing tools do the rest.</p>
+                        <ul class="step-features">
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                Social media integration
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                Embeddable widgets
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                Email campaigns
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="step-visual">
+                        <div class="social-cards">
+                            <div class="social-card twitter">
+                                <div class="social-icon">𝕏</div>
+                                <div class="social-stats">
+                                    <span>2.4K shares</span>
+                                </div>
+                            </div>
+                            <div class="social-card instagram">
+                                <div class="social-icon">📷</div>
+                                <div class="social-stats">
+                                    <span>5.1K likes</span>
+                                </div>
+                            </div>
+                            <div class="social-card email">
+                                <div class="social-icon">✉️</div>
+                                <div class="social-stats">
+                                    <span>89% open rate</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="step" data-aos="fade-right">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Check In Attendees</h3>
+                        <p>Use our mobile app to scan QR codes and check in attendees instantly. Real-time sync across all devices.</p>
+                        <ul class="step-features">
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                Instant QR scanning
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                Offline mode available
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                Live attendance tracking
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="step-visual">
+                        <div class="phone-mockup">
+                            <div class="phone-notch"></div>
+                            <div class="phone-screen">
+                                <div class="scan-animation">
+                                    <div class="scan-line"></div>
+                                </div>
+                                <div class="scan-result success">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                    <span>Verified!</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card" data-aos="zoom-in">
+                    <div class="stat-value">
+                        <span class="counter" data-target="50000">0</span>+
+                    </div>
+                    <div class="stat-title">Events Hosted</div>
+                    <div class="stat-desc">Successful events powered by Eventora</div>
+                </div>
+                <div class="stat-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="stat-value">
+                        <span class="counter" data-target="2">0</span>M+
+                    </div>
+                    <div class="stat-title">Tickets Sold</div>
+                    <div class="stat-desc">Digital tickets issued securely</div>
+                </div>
+                <div class="stat-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="stat-value">
+                        <span class="counter" data-target="150">0</span>+
+                    </div>
+                    <div class="stat-title">Countries</div>
+                    <div class="stat-desc">Global reach for your events</div>
+                </div>
+                <div class="stat-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="stat-value">
+                        <span class="counter" data-target="99">0</span>%
+                    </div>
+                    <div class="stat-title">Uptime</div>
+                    <div class="stat-desc">Reliable platform you can trust</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Pricing</span>
+                <h2 class="section-title">Simple, transparent pricing</h2>
+                <p class="section-subtitle">No hidden fees. Only pay when you sell tickets.</p>
+            </div>
+            <div class="pricing-toggle">
+                <span class="toggle-label active" data-plan="monthly">Monthly</span>
+                <button class="toggle-switch" id="pricingToggle">
+                    <span class="toggle-slider"></span>
+                </button>
+                <span class="toggle-label" data-plan="annual">Annual <span class="save-badge">Save 20%</span></span>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card" data-aos="fade-up">
+                    <div class="pricing-header">
+                        <h3>Starter</h3>
+                        <p>Perfect for small events and getting started</p>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="currency">$</span>
+                        <span class="amount" data-monthly="0" data-annual="0">0</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <div class="pricing-fee">+ 2.5% per ticket</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Up to 100 tickets/event
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Basic event page
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            QR code tickets
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Email support
+                        </li>
+                    </ul>
+                    <a href="#" class="btn-secondary btn-full">Get Started</a>
+                </div>
+                <div class="pricing-card popular" data-aos="fade-up" data-aos-delay="100">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="pricing-header">
+                        <h3>Professional</h3>
+                        <p>For growing organizers who need more power</p>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="currency">$</span>
+                        <span class="amount" data-monthly="49" data-annual="39">49</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <div class="pricing-fee">+ 1.5% per ticket</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Unlimited tickets
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Custom branding
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Advanced analytics
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Priority support
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Team access (5 members)
+                        </li>
+                    </ul>
+                    <a href="#" class="btn-primary btn-full">Get Started</a>
+                </div>
+                <div class="pricing-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="pricing-header">
+                        <h3>Enterprise</h3>
+                        <p>For large organizations with custom needs</p>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="currency">$</span>
+                        <span class="amount" data-monthly="199" data-annual="159">199</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <div class="pricing-fee">+ 0.5% per ticket</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Everything in Professional
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            White-label solution
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            API access
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Dedicated account manager
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Unlimited team members
+                        </li>
+                    </ul>
+                    <a href="#" class="btn-secondary btn-full">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Testimonials</span>
+                <h2 class="section-title">Loved by event organizers</h2>
+                <p class="section-subtitle">See what our customers have to say about Eventora</p>
+            </div>
+            <div class="testimonials-slider" id="testimonialSlider">
+                <div class="testimonial-track">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="testimonial-stars">★★★★★</div>
+                            <p>"Eventora transformed how we manage our annual tech conference. Ticket sales doubled and check-in was a breeze!"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="{% static '/placeholder.svg?height=48&width=48' %}" alt="Sarah Chen">
+                            </div>
+                            <div class="author-info">
+                                <span class="author-name">Sarah Chen</span>
+                                <span class="author-role">Director, TechConf Global</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="testimonial-stars">★★★★★</div>
+                            <p>"The QR code ticketing system is incredible. No more long lines, no more lost tickets. Just scan and go!"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="{% static '/placeholder.svg?height=48&width=48' %}" alt="Marcus Johnson">
+                            </div>
+                            <div class="author-info">
+                                <span class="author-name">Marcus Johnson</span>
+                                <span class="author-role">Founder, MusicFest Live</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="testimonial-stars">★★★★★</div>
+                            <p>"We've tried many ticketing platforms. Eventora is by far the most intuitive and feature-rich solution out there."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="{% static '/placeholder.svg?height=48&width=48' %}" alt="Emily Watson">
+                            </div>
+                            <div class="author-info">
+                                <span class="author-name">Emily Watson</span>
+                                <span class="author-role">Events Lead, StartupWeek</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-nav">
+                    <button class="nav-btn prev" id="prevBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+                    <div class="nav-dots" id="navDots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <button class="nav-btn next" id="nextBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">FAQ</span>
+                <h2 class="section-title">Frequently asked questions</h2>
+                <p class="section-subtitle">Everything you need to know about Eventora</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item" data-aos="fade-up">
+                    <button class="faq-question">
+                        <span>How does the pricing work?</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We offer a simple pricing model. Choose a monthly plan based on your needs, and pay a small percentage per ticket sold. There are no hidden fees, and you only pay when you make money.</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="50">
+                    <button class="faq-question">
+                        <span>Can I customize my event page?</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>With our Professional and Enterprise plans, you can fully customize your event page with your own branding, colors, and layouts. The Starter plan includes a beautiful default template.</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                    <button class="faq-question">
+                        <span>How do attendees receive their tickets?</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Attendees receive their digital tickets via email immediately after purchase. Each ticket includes a unique QR code that can be scanned at the event for quick, contactless check-in.</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="150">
+                    <button class="faq-question">
+                        <span>What payment methods do you support?</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We support all major credit and debit cards (Visa, Mastercard, American Express), as well as PayPal, Apple Pay, and Google Pay. International payments are fully supported.</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                    <button class="faq-question">
+                        <span>Can I offer refunds to attendees?</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! You have full control over your refund policy. Process full or partial refunds directly from your dashboard with just a few clicks.</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="250">
+                    <button class="faq-question">
+                        <span>Is there a mobile app for check-in?</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! Our free mobile app (iOS and Android) lets you scan QR codes and check in attendees instantly. It works offline too, syncing data when you're back online.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content" data-aos="zoom-in">
+                <h2>Ready to create your next event?</h2>
+                <p>Join thousands of event organizers who trust Eventora to power their events.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn-primary btn-large">
+                        Start for free
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="btn-ghost btn-large">Talk to sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M3 10H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Eventora</span>
+                    </a>
+                    <p>The modern platform for creating and managing unforgettable events.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Integrations</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Webinars</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Eventora. All rights reserved.</p>
+                <div class="footer-locale">
+                    <button class="locale-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="2" y1="12" x2="22" y2="12"/>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                        English (US)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/index.js' %}"></script>
 </body>
 </html>
