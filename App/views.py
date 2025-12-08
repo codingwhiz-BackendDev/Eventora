@@ -8,3 +8,9 @@ def login(request):
 
 def register(request):
     return render(request, 'signup.html')
+
+def organizer_dashboard(request):
+    return render(request, 'organizer_dashboard.html')
+
+def create_event(request):
+    return render(request, 'create_event.html')

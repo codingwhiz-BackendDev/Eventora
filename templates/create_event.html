@@ -1,0 +1,658 @@
+{% extends "base.html" %}
+{% load static %}
+ 
+
+{% block content %}
+<!-- Main Content -->
+<main class="main-content">
+  <!-- Top Header -->
+  <header class="top-header">
+    <div class="header-left">
+      <button class="menu-toggle" id="menuToggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18"/>
+        </svg>
+      </button>
+      <div class="breadcrumb">
+        <a href="/dashboard">Dashboard</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m9 18 6-6-6-6"/>
+        </svg>
+        <span>Create Event</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="btn-header-action" id="saveDraftBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+          <polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
+        </svg>
+        <span>Save Draft</span>
+      </button>
+      <button class="btn-header-action primary" id="previewBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+        </svg>
+        <span>Preview</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Page Content -->
+  <div class="page-content">
+    <section class="page-section active" id="page-create-event">
+      <div class="page-header">
+        <div>
+          <h1>Create New Event</h1>
+          <p>Fill in the details below to create your event.</p>
+        </div>
+      </div>
+
+      <!-- Progress Steps -->
+      <div class="form-progress">
+        <div class="progress-step active" data-step="1">
+          <div class="step-number">1</div>
+          <span class="step-label">Basic Info</span>
+        </div>
+        <div class="progress-line"></div>
+        <div class="progress-step" data-step="2">
+          <div class="step-number">2</div>
+          <span class="step-label">Date & Location</span>
+        </div>
+        <div class="progress-line"></div>
+        <div class="progress-step" data-step="3">
+          <div class="step-number">3</div>
+          <span class="step-label">Tickets</span>
+        </div>
+        <div class="progress-line"></div>
+        <div class="progress-step" data-step="4">
+          <div class="step-number">4</div>
+          <span class="step-label">Publish</span>
+        </div>
+      </div>
+
+      <!-- Form Container -->
+      <form id="createEventForm" class="create-event-form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Step 1: Basic Info -->
+        <div class="form-step active" data-step="1">
+          <div class="form-grid">
+            <!-- Left Column -->
+            <div class="form-column">
+              <div class="form-card">
+                <h3 class="form-card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                  </svg>
+                  Event Details
+                </h3>
+                
+                <div class="form-group">
+                  <label for="eventTitle">Event Title <span class="required">*</span></label>
+                  <input type="text" id="eventTitle" name="title" placeholder="Enter a catchy event title" required>
+                  <span class="char-count"><span id="titleCount">0</span>/100</span>
+                </div>
+
+                <div class="form-group">
+                  <label for="eventDescription">Description <span class="required">*</span></label>
+                  <textarea id="eventDescription" name="description" rows="5" placeholder="Describe your event, what attendees can expect..." required></textarea>
+                  <span class="char-count"><span id="descCount">0</span>/2000</span>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="eventCategory">Category <span class="required">*</span></label>
+                    <select id="eventCategory" name="category" required>
+                      <option value="">Select category</option>
+                      <option value="conference">Conference</option>
+                      <option value="workshop">Workshop</option>
+                      <option value="concert">Concert</option>
+                      <option value="festival">Festival</option>
+                      <option value="networking">Networking</option>
+                      <option value="sports">Sports</option>
+                      <option value="exhibition">Exhibition</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="eventType">Event Type <span class="required">*</span></label>
+                    <select id="eventType" name="event_type" required>
+                      <option value="">Select type</option>
+                      <option value="in-person">In-Person</option>
+                      <option value="virtual">Virtual</option>
+                      <option value="hybrid">Hybrid</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Tags</label>
+                  <div class="tags-input-wrapper">
+                    <div class="tags-container" id="tagsContainer"></div>
+                    <input type="text" id="tagsInput" placeholder="Type and press Enter to add tags">
+                  </div>
+                  <input type="hidden" name="tags" id="tagsHidden">
+                  <span class="form-hint">Add up to 5 tags to help people discover your event</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="form-column">
+              <div class="form-card">
+                <h3 class="form-card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+                    <path d="m21 15-5-5L5 21"/>
+                  </svg>
+                  Event Image
+                </h3>
+                
+                <div class="image-upload-zone" id="imageUploadZone">
+                  <input type="file" id="eventImage" name="image" accept="image/*" hidden>
+                  <div class="upload-placeholder" id="uploadPlaceholder">
+                    <div class="upload-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+                      </svg>
+                    </div>
+                    <p class="upload-text">Drag & drop your image here</p>
+                    <p class="upload-hint">or click to browse</p>
+                    <span class="upload-specs">Recommended: 1920x1080px, Max 5MB</span>
+                  </div>
+                  <div class="image-preview" id="imagePreview" style="display: none;">
+                    <img id="previewImg" src="/placeholder.svg" alt="Preview">
+                    <button type="button" class="remove-image" id="removeImage">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6 6 18M6 6l12 12"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-card">
+                <h3 class="form-card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <path d="M12 17h.01"/>
+                  </svg>
+                  Additional Options
+                </h3>
+
+                <div class="form-group">
+                  <label class="toggle-label">
+                    <input type="checkbox" name="is_private" id="isPrivate">
+                    <span class="toggle-switch"></span>
+                    <span class="toggle-text">Private Event</span>
+                  </label>
+                  <span class="form-hint">Only people with the link can see this event</span>
+                </div>
+
+                <div class="form-group">
+                  <label class="toggle-label">
+                    <input type="checkbox" name="require_approval" id="requireApproval">
+                    <span class="toggle-switch"></span>
+                    <span class="toggle-text">Require Approval</span>
+                  </label>
+                  <span class="form-hint">Manually approve attendees before they can join</span>
+                </div>
+
+                <div class="form-group">
+                  <label class="toggle-label">
+                    <input type="checkbox" name="show_attendees" id="showAttendees" checked>
+                    <span class="toggle-switch"></span>
+                    <span class="toggle-text">Show Attendee Count</span>
+                  </label>
+                  <span class="form-hint">Display number of attendees on event page</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Date & Location -->
+        <div class="form-step" data-step="2">
+          <div class="form-grid">
+            <div class="form-column">
+              <div class="form-card">
+                <h3 class="form-card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+                  </svg>
+                  Date & Time
+                </h3>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="startDate">Start Date <span class="required">*</span></label>
+                    <input type="date" id="startDate" name="start_date" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="startTime">Start Time <span class="required">*</span></label>
+                    <input type="time" id="startTime" name="start_time" required>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="endDate">End Date <span class="required">*</span></label>
+                    <input type="date" id="endDate" name="end_date" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="endTime">End Time <span class="required">*</span></label>
+                    <input type="time" id="endTime" name="end_time" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="timezone">Timezone</label>
+                  <select id="timezone" name="timezone">
+                    <option value="UTC">UTC</option>
+                    <option value="America/New_York">Eastern Time (ET)</option>
+                    <option value="America/Chicago">Central Time (CT)</option>
+                    <option value="America/Denver">Mountain Time (MT)</option>
+                    <option value="America/Los_Angeles">Pacific Time (PT)</option>
+                    <option value="Europe/London">London (GMT)</option>
+                    <option value="Europe/Paris">Paris (CET)</option>
+                    <option value="Asia/Tokyo">Tokyo (JST)</option>
+                    <option value="Africa/Lagos">Lagos (WAT)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="toggle-label">
+                    <input type="checkbox" name="is_recurring" id="isRecurring">
+                    <span class="toggle-switch"></span>
+                    <span class="toggle-text">Recurring Event</span>
+                  </label>
+                </div>
+
+                <div class="recurring-options" id="recurringOptions" style="display: none;">
+                  <div class="form-group">
+                    <label for="recurringFrequency">Repeat</label>
+                    <select id="recurringFrequency" name="recurring_frequency">
+                      <option value="daily">Daily</option>
+                      <option value="weekly">Weekly</option>
+                      <option value="monthly">Monthly</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="recurringEnd">End Repeat</label>
+                    <input type="date" id="recurringEnd" name="recurring_end">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-column">
+              <div class="form-card">
+                <h3 class="form-card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+                  </svg>
+                  Location
+                </h3>
+
+                <div class="location-type-selector">
+                  <button type="button" class="location-type-btn active" data-type="venue">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                      <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                    Physical Venue
+                  </button>
+                  <button type="button" class="location-type-btn" data-type="online">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M15 10l5 5-5 5"/><path d="M20 15H8"/><path d="M9 4l-5 5 5 5"/>
+                      <path d="M4 9h12"/>
+                    </svg>
+                    Online Event
+                  </button>
+                </div>
+
+                <div class="venue-fields" id="venueFields">
+                  <div class="form-group">
+                    <label for="venueName">Venue Name <span class="required">*</span></label>
+                    <input type="text" id="venueName" name="venue_name" placeholder="e.g., Convention Center">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="venueAddress">Address <span class="required">*</span></label>
+                    <input type="text" id="venueAddress" name="venue_address" placeholder="Street address">
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="venueCity">City <span class="required">*</span></label>
+                      <input type="text" id="venueCity" name="venue_city" placeholder="City">
+                    </div>
+                    <div class="form-group">
+                      <label for="venueState">State/Region</label>
+                      <input type="text" id="venueState" name="venue_state" placeholder="State">
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="venueZip">Postal Code</label>
+                      <input type="text" id="venueZip" name="venue_zip" placeholder="Postal code">
+                    </div>
+                    <div class="form-group">
+                      <label for="venueCountry">Country <span class="required">*</span></label>
+                      <select id="venueCountry" name="venue_country">
+                        <option value="">Select country</option>
+                        <option value="US">United States</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="CA">Canada</option>
+                        <option value="NG">Nigeria</option>
+                        <option value="GH">Ghana</option>
+                        <option value="ZA">South Africa</option>
+                        <option value="KE">Kenya</option>
+                        <option value="DE">Germany</option>
+                        <option value="FR">France</option>
+                        <option value="AU">Australia</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="map-placeholder">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+                      <line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/>
+                    </svg>
+                    <span>Map preview will appear here</span>
+                  </div>
+                </div>
+
+                <div class="online-fields" id="onlineFields" style="display: none;">
+                  <div class="form-group">
+                    <label for="onlinePlatform">Platform</label>
+                    <select id="onlinePlatform" name="online_platform">
+                      <option value="">Select platform</option>
+                      <option value="zoom">Zoom</option>
+                      <option value="google-meet">Google Meet</option>
+                      <option value="teams">Microsoft Teams</option>
+                      <option value="webex">Webex</option>
+                      <option value="custom">Custom Link</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="onlineLink">Event Link</label>
+                    <input type="url" id="onlineLink" name="online_link" placeholder="https://...">
+                    <span class="form-hint">This will be shared with registered attendees</span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="onlinePassword">Meeting Password (optional)</label>
+                    <input type="text" id="onlinePassword" name="online_password" placeholder="Password if required">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Tickets -->
+        <div class="form-step" data-step="3">
+          <div class="form-card full-width">
+            <div class="tickets-header">
+              <h3 class="form-card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/>
+                </svg>
+                Ticket Tiers
+              </h3>
+              <button type="button" class="btn-add-ticket" id="addTicketBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 5v14M5 12h14"/>
+                </svg>
+                Add Ticket Tier
+              </button>
+            </div>
+
+            <div class="tickets-container" id="ticketsContainer">
+              <!-- Default Free Ticket -->
+              <div class="ticket-tier" data-tier="1">
+                <div class="ticket-tier-header">
+                  <div class="tier-drag-handle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/>
+                      <circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/>
+                    </svg>
+                  </div>
+                  <span class="tier-label">Tier 1</span>
+                  <button type="button" class="tier-collapse">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="m18 15-6-6-6 6"/>
+                    </svg>
+                  </button>
+                  <button type="button" class="tier-delete">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                    </svg>
+                  </button>
+                </div>
+                <div class="ticket-tier-body">
+                  <div class="form-row">
+                    <div class="form-group flex-2">
+                      <label>Ticket Name <span class="required">*</span></label>
+                      <input type="text" name="ticket_name_1" placeholder="e.g., General Admission" required>
+                    </div>
+                    <div class="form-group flex-1">
+                      <label>Price</label>
+                      <div class="price-input">
+                        <span class="currency">$</span>
+                        <input type="number" name="ticket_price_1" placeholder="0.00" min="0" step="0.01">
+                      </div>
+                    </div>
+                    <div class="form-group flex-1">
+                      <label>Quantity</label>
+                      <input type="number" name="ticket_quantity_1" placeholder="Unlimited" min="1">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="ticket_description_1" rows="2" placeholder="What's included with this ticket?"></textarea>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label>Sales Start</label>
+                      <input type="datetime-local" name="ticket_sales_start_1">
+                    </div>
+                    <div class="form-group">
+                      <label>Sales End</label>
+                      <input type="datetime-local" name="ticket_sales_end_1">
+                    </div>
+                  </div>
+                  <div class="ticket-options">
+                    <label class="toggle-label small">
+                      <input type="checkbox" name="ticket_visible_1" checked>
+                      <span class="toggle-switch"></span>
+                      <span class="toggle-text">Visible</span>
+                    </label>
+                    <label class="toggle-label small">
+                      <input type="checkbox" name="ticket_transferable_1">
+                      <span class="toggle-switch"></span>
+                      <span class="toggle-text">Transferable</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tickets-summary">
+              <div class="summary-item">
+                <span class="summary-label">Total Ticket Tiers</span>
+                <span class="summary-value" id="totalTiers">1</span>
+              </div>
+              <div class="summary-item">
+                <span class="summary-label">Total Capacity</span>
+                <span class="summary-value" id="totalCapacity">Unlimited</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Review & Publish -->
+        <div class="form-step" data-step="4">
+          <div class="review-container">
+            <div class="review-card">
+              <h3 class="form-card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+                </svg>
+                Review Your Event
+              </h3>
+
+              <div class="review-section">
+                <div class="review-header">
+                  <h4>Basic Information</h4>
+                  <button type="button" class="edit-section-btn" data-goto="1">Edit</button>
+                </div>
+                <div class="review-content">
+                  <div class="review-item">
+                    <span class="review-label">Title</span>
+                    <span class="review-value" id="reviewTitle">-</span>
+                  </div>
+                  <div class="review-item">
+                    <span class="review-label">Category</span>
+                    <span class="review-value" id="reviewCategory">-</span>
+                  </div>
+                  <div class="review-item">
+                    <span class="review-label">Type</span>
+                    <span class="review-value" id="reviewType">-</span>
+                  </div>
+                  <div class="review-item full">
+                    <span class="review-label">Description</span>
+                    <span class="review-value" id="reviewDescription">-</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="review-section">
+                <div class="review-header">
+                  <h4>Date & Location</h4>
+                  <button type="button" class="edit-section-btn" data-goto="2">Edit</button>
+                </div>
+                <div class="review-content">
+                  <div class="review-item">
+                    <span class="review-label">Start</span>
+                    <span class="review-value" id="reviewStart">-</span>
+                  </div>
+                  <div class="review-item">
+                    <span class="review-label">End</span>
+                    <span class="review-value" id="reviewEnd">-</span>
+                  </div>
+                  <div class="review-item full">
+                    <span class="review-label">Location</span>
+                    <span class="review-value" id="reviewLocation">-</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="review-section">
+                <div class="review-header">
+                  <h4>Tickets</h4>
+                  <button type="button" class="edit-section-btn" data-goto="3">Edit</button>
+                </div>
+                <div class="review-content" id="reviewTickets">
+                  <!-- Ticket tiers will be listed here -->
+                </div>
+              </div>
+            </div>
+
+            <div class="publish-options">
+              <div class="form-card">
+                <h3 class="form-card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                  </svg>
+                  Publish Settings
+                </h3>
+
+                <div class="publish-option">
+                  <input type="radio" name="publish_status" id="publishNow" value="published" checked>
+                  <label for="publishNow">
+                    <span class="option-title">Publish Now</span>
+                    <span class="option-desc">Your event will be live immediately</span>
+                  </label>
+                </div>
+
+                <div class="publish-option">
+                  <input type="radio" name="publish_status" id="schedulePublish" value="scheduled">
+                  <label for="schedulePublish">
+                    <span class="option-title">Schedule Publish</span>
+                    <span class="option-desc">Set a date and time to go live</span>
+                  </label>
+                </div>
+
+                <div class="schedule-fields" id="scheduleFields" style="display: none;">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="scheduleDate">Publish Date</label>
+                      <input type="date" id="scheduleDate" name="schedule_date">
+                    </div>
+                    <div class="form-group">
+                      <label for="scheduleTime">Publish Time</label>
+                      <input type="time" id="scheduleTime" name="schedule_time">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="publish-option">
+                  <input type="radio" name="publish_status" id="saveDraft" value="draft">
+                  <label for="saveDraft">
+                    <span class="option-title">Save as Draft</span>
+                    <span class="option-desc">Continue editing later before publishing</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Navigation -->
+        <div class="form-navigation">
+          <button type="button" class="btn-nav prev" id="prevBtn" style="display: none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m15 18-6-6 6-6"/>
+            </svg>
+            Previous
+          </button>
+          <button type="button" class="btn-nav next" id="nextBtn">
+            Next
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m9 18 6-6-6-6"/>
+            </svg>
+          </button>
+          <button type="submit" class="btn-nav submit" id="submitBtn" style="display: none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+            </svg>
+            Publish Event
+          </button>
+        </div>
+      </form>
+    </section>
+  </div>
+</main>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast">
+  <div class="toast-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/>
+    </svg>
+  </div>
+  <span class="toast-message" id="toastMessage">Event saved successfully!</span>
+</div>
+<script src="{% static 'js/create-event.js' %}"></script>
+
+{% endblock %} 
