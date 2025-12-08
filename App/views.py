@@ -14,3 +14,6 @@ def organizer_dashboard(request):
 
 def create_event(request):
     return render(request, 'create_event.html')
+
+def my_event(request):
+    return render(request, 'my_events.html') 
